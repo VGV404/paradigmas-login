@@ -9,6 +9,9 @@ from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker, declarative_base, Session
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+import requests
+from fastapi.responses import FileResponse
+import os
 
 # -------------------- Configs/JWT --------------------
 SECRET_KEY = "ABFD-EFG-HIJ"  
@@ -200,4 +203,5 @@ def deletar_usuario(user_id: int, current_user: UsuarioDB = Depends(get_current_
     db.delete(user)
     db.commit()
     return {"message": "Usuário deletado com sucesso"}
+
 
