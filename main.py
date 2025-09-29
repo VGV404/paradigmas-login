@@ -121,6 +121,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Rota inicial GET
+@app.get("/")
+def read_root():
+    return FileResponse(os.path.join("", "index.html"))
+    
 # --------- Auth: obter token (login) ----------
 @app.post("/token", response_model=Token, summary="Login e obtenção de token JWT")
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
@@ -195,3 +200,4 @@ def deletar_usuario(user_id: int, current_user: UsuarioDB = Depends(get_current_
     db.delete(user)
     db.commit()
     return {"message": "Usuário deletado com sucesso"}
+
